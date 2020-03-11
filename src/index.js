@@ -5,7 +5,7 @@ const root = document.querySelector('#root');
 
 const App = () => {
   return (
-    <hr />
+    <div>Acme Schools!!</div>
   );
 };
 ReactDOM.render(<App />, root);
