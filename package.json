@@ -9,24 +9,17 @@
     "build:dev": "npm run build -- --watch --mode=development",
     "start:dev": "nodemon server --ignore dist/ --ignore src/ & npm run build:dev"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/Shuri805/acme-schools.git"
-  },
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/Shuri805/acme-schools/issues"
-  },
-  "homepage": "https://github.com/Shuri805/acme-schools#readme",
   "devDependencies": {
-    "@babel/core": "^7.8.7",
+    "@babel/core": "^7.8.4",
     "@babel/preset-react": "^7.8.3",
+    "axios": "^0.19.2",
     "babel-loader": "^8.0.6",
-    "react": "^16.13.0",
-    "react-dom": "^16.13.0",
-    "webpack": "^4.42.0",
+    "react": "^16.12.0",
+    "react-dom": "^16.12.0",
+    "webpack": "^4.41.6",
     "webpack-cli": "^3.3.11"
   },
   "dependencies": {

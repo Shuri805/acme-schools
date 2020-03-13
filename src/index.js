@@ -1,5 +1,5 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
+import {render} from 'react-dom';
 
 const root = document.querySelector('#root');
 
@@ -8,5 +8,4 @@ const App = () => {
     <div>Acme Schools!</div>
   );
 };
-ReactDOM.render(<App />, root);
-
+render(<App />, root);

@@ -1,6 +1,6 @@
 const { Client} = require('pg');
+const client = new Client(process.env.DATABASE_URL || 'postgres:localhost/acme-schools');
 
-const client = new Client(process.env.DATABASE_URL || 'postgres://localhost/acme-schools');
 
 client.connect();
 
@@ -16,7 +16,7 @@ const sync = async()=> {
   );
   CREATE TABLE students(
     id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
-    "studentName" VARCHAR(100) NOT NULL
+    "studentName" VARCHAR(100) NOT NULL,
     "schoolId" UUID REFERENCES schools(id),
     CHECK (char_length("studentName") > 0)
   );
@@ -29,9 +29,9 @@ const [UCLA, NYU] = await Promise.all([
 ]);
 
  const [moe, lucy] = await Promise.all([
-  createStudent({ studentName: 'moe', schoolId: moe.id}),
-  createStudent({ studentName: 'lucy', schoolId: lucy.id})
-]);
+  // createStudent({ studentName: 'moe', schoolId: moe.id}),
+  // createStudent({ studentName: 'lucy', schoolId: lucy.id})
+ ]);
 
   console.log(await readSchools());
   console.log(await readStudents());
@@ -42,17 +42,18 @@ const createSchool = async({ schoolName }) => {
 };
 
 const createStudent = async({ studentName, schoolId }) => {
-  return (await client.query('INSERT INTO students("studentName", schoolID) values($1, $2) returning *', [ studentName, schoolId])).rows[0]
+  return (await client.query('INSERT INTO students("studentName", "schoolId") values($1, $2) returning *', [ studentName, schoolId])).rows[0]
 };
 
 const readSchools = async()=> {
   return (await client.query('SELECT * from schools')).rows;
-}
+};
 
 const readStudents = async()=> {
   return (await client.query('SELECT * from students')).rows;
-}
+};
 
+// sync();
 module.exports = {
   sync,
   createSchool,
