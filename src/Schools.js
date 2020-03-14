@@ -1,6 +1,6 @@
 import React from 'react';
 
-const Schools = ({students, schools}) => {
+const Schools = ({students, schools, destroy}) => {
   return (
     <div>
       <h2>Schools ({schools.length})</h2>
@@ -12,6 +12,10 @@ const Schools = ({students, schools}) => {
             return (
               <li key ={school.id}>
                 {school.schoolName}
+                {filtered.length === 0 && (
+                  <button onClick={ ()=> destroy(school.id)}>x</button>
+                )}
+
                 <ul>
                   {
                     filtered.map( student => {

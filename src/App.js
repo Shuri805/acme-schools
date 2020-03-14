@@ -16,11 +16,32 @@ const App = () => {
       setSchools(responses[1].data);
     })
   },[]);
+
+  const destroyStudent = async(id)=>{
+    await axios.delete(`/api/students/${id}`);
+    setStudents(students.filter(student => student.id !== id));
+    //console.log(id);
+  };
+
+  const destroySchool = async(id)=>{
+    await axios.delete(`/api/schools/${id}`);
+    setSchools(schools.filter(school => school.id !== id));
+    // console.log(id);
+  };
+
   return (
     <div>
       <h1>Acme Schools</h1>
-      <Students students= { students } schools={ schools } />
-      <Schools schools={ schools } students={ students }/>
+      <Students
+        students= { students }
+        schools= { schools }
+        destroy={ destroyStudent }
+      />
+      <Schools
+        schools={ schools }
+        students={ students }
+        destroy= {destroySchool}
+      />
     </div>
   );
 };

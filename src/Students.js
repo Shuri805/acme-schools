@@ -1,6 +1,6 @@
 import React from 'react';
 
-const Students = ({students, schools}) => {
+const Students = ({students, schools, destroy}) => {
   return (
     <div>
       <h2>Students ({students.length})</h2>
@@ -11,7 +11,10 @@ const Students = ({students, schools}) => {
             console.log(school);
             return (
               <li key ={student.id}>
-                {student.studentName} at {!!school && school.schoolName}
+                {student.studentName}
+                <button onClick={ ()=> destroy(student.id)}>x</button>
+                at {!!school && school.schoolName}
+
               </li>
             );
           })
