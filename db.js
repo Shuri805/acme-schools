@@ -23,13 +23,13 @@ const sync = async()=> {
 `;
 await client.query(SQL);
 
-const [UCLA, NYU] = await Promise.all([
+const [UCLA, NYU, USC] = await Promise.all([
   createSchool({ schoolName: 'UCLA'}),
   createSchool({ schoolName: 'NYU'}),
   createSchool({ schoolName: 'USC'}),
 ]);
 
- const [moe, lucy] = await Promise.all([
+ const [moe, lucy, curly] = await Promise.all([
   createStudent({ studentName: 'moe', schoolId: UCLA.id}),
   createStudent({ studentName: 'lucy', schoolId: NYU.id}),
   createStudent({ studentName: 'curly', schoolId: NYU.id})
