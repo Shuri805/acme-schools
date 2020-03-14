@@ -35,6 +35,8 @@ const [UCLA, NYU, USC] = await Promise.all([
   createStudent({ studentName: 'curly', schoolId: NYU.id})
  ]);
 
+  // await deleteSchool(lucy.id);
+
   console.log(await readSchools());
   console.log(await readStudents());
 };
@@ -45,6 +47,14 @@ const createSchool = async({ schoolName }) => {
 
 const createStudent = async({ studentName, schoolId }) => {
   return (await client.query('INSERT INTO students("studentName", "schoolId") values($1, $2) returning *', [ studentName, schoolId])).rows[0]
+};
+
+const destroyStudent = async(id)=> {
+  await client.query('DELETE FROM students WHERE id=$1', [id]);
+};
+
+const destroySchool = async(id)=> {
+  await client.query('DELETE FROM schools WHERE id=$1', [id]);
 };
 
 const readSchools = async()=> {
@@ -62,5 +72,9 @@ module.exports = {
   read:{
     schools: readSchools,
     students: readStudents
+  },
+  destroy: {
+    schools: destroySchool,
+    students: destroyStudent
   }
 };

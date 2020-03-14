@@ -20,6 +20,19 @@ app.get('/api/schools', (req, res, next) => {
   .catch(next);
 });
 
+app.delete('/api/students/:id', (req, res, next) => {
+  db.destroy.students(req.params.id)
+  .then(() => res.send(204))
+  .catch(next);
+});
+
+app.delete('/api/schools/:id', (req, res, next) => {
+  db.destroy.schools(req.params.id)
+  .then(() => res.send(204))
+  .catch(next);
+});
+
+
 const port = process.env.PORT || 3000;
 
 db.sync()
