@@ -25,12 +25,14 @@ await client.query(SQL);
 
 const [UCLA, NYU] = await Promise.all([
   createSchool({ schoolName: 'UCLA'}),
-  createSchool({ schoolName: 'NYU'})
+  createSchool({ schoolName: 'NYU'}),
+  createSchool({ schoolName: 'USC'}),
 ]);
 
  const [moe, lucy] = await Promise.all([
-  // createStudent({ studentName: 'moe', schoolId: moe.id}),
-  // createStudent({ studentName: 'lucy', schoolId: lucy.id})
+  createStudent({ studentName: 'moe', schoolId: UCLA.id}),
+  createStudent({ studentName: 'lucy', schoolId: NYU.id}),
+  createStudent({ studentName: 'curly', schoolId: NYU.id})
  ]);
 
   console.log(await readSchools());
@@ -53,11 +55,12 @@ const readStudents = async()=> {
   return (await client.query('SELECT * from students')).rows;
 };
 
-// sync();
 module.exports = {
   sync,
   createSchool,
   createStudent,
-  readSchools,
-  readStudents
+  read:{
+    schools: readSchools,
+    students: readStudents
+  }
 };
