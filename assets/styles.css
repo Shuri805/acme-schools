@@ -1,0 +1,21 @@
+body {
+  font-family: sans-serif;
+}
+
+select, button, input {
+  height: 2rem;
+}
+
+li {
+  display: flex:
+  flex-direction: column;
+}
+
+li > * {
+  margin: 1rem 0;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+}
