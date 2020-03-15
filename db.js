@@ -11,7 +11,7 @@ const sync = async()=> {
   DROP TABLE IF EXISTS schools;
   CREATE TABLE schools(
     id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
-    "schoolName" VARCHAR(100) NOT NULL,
+    "schoolName" VARCHAR(100) NOT NULL UNIQUE,
     CHECK (char_length("schoolName") > 0)
   );
   CREATE TABLE students(
@@ -68,8 +68,10 @@ const readStudents = async()=> {
 
 module.exports = {
   sync,
-  createSchool,
-  createStudent,
+  create: {
+    schools: createSchool,
+    students: createStudent
+  },
   read:{
     schools: readSchools,
     students: readStudents
