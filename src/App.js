@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import Students from './Students'
 import Schools from './Schools'
+import SchoolForm from './SchoolForm'
 
 const App = () => {
   const [ schools, setSchools] = useState([]);
@@ -16,6 +17,12 @@ const App = () => {
       setSchools(responses[1].data);
     })
   },[]);
+
+  const createSchool = async(school)=> {
+    const created = (await axios.post('/api/schools', school)).data;
+    setSchools([...schools, created]);
+    // console.log(created);
+  };
 
   const destroyStudent = async(id)=>{
     await axios.delete(`/api/students/${id}`);
@@ -32,6 +39,11 @@ const App = () => {
   return (
     <div>
       <h1>Acme Schools</h1>
+      <div className='left-right'></div>
+      <SchoolForm
+        create={ createSchool}
+      />
+
       <Students
         students= { students }
         schools= { schools }
