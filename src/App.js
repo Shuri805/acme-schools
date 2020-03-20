@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import qs from 'qs';
 import Students from './Students';
 import Schools from './Schools';
 import SchoolForm from './SchoolForm';
@@ -8,6 +9,18 @@ import StudentForm from './StudentForm';
 const App = () => {
   const [ schools, setSchools] = useState([]);
   const [ students, setStudents] = useState([]);
+
+  const [params, setParams] = useState(qs.parse(window.location.hash.slice(1)));
+
+  useEffect(()=>{
+    window.addEventListener('hashchange', ()=> {
+      setParams(qs.parse(window.location.hash.slice(1)));
+    });
+  }, []);
+
+  console.log(params)
+
+  // const { view } = params;
 
   useEffect(()=> {
     Promise.all([
@@ -43,6 +56,8 @@ const App = () => {
     setSchools(schools.filter(school => school.id !== id));
     // console.log(id);
   };
+
+  const { view } = params;
 
   return (
     <div>

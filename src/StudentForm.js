@@ -1,14 +1,16 @@
 import React, { useState } from 'react';
 
-const StudentForm = ({create})=> {
+const StudentForm = ({create, schools})=> {
   const [studentName, setStudentName ] = useState('');
+  const [schoolId, setSchoolId] = useState('');
   const [error, setError] = useState('');
   const onSubmit = (ev)=> {
     ev.preventDefault();
-    create({studentName})
+    create({studentName, schoolId})
     .then(()=> {
       setError('');
       setStudentName('');
+      setSchoolId('');
     })
     .catch(ex => setError(ex.response.data.message));
   }
@@ -21,7 +23,18 @@ const StudentForm = ({create})=> {
       }
       </div>
       <input value={studentName} onChange={ (ev)=> setStudentName(ev.target.value)}/>
-      <button>Create</button>
+      <select value={ schoolId } onChange={ (ev)=> setSchoolId(ev.target.value)}>
+        <option value=''> -- choose a school -- </option>
+        {
+          schools.map( school => {
+            return (
+              <option value={ school.id } key={ school.id }>{school.schoolName}
+              </option>
+            )
+          })
+        }
+      </select>
+      <button disabled={!schoolId}> Create</button>
     </form>
   );
 };

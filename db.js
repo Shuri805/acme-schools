@@ -47,7 +47,7 @@ const createSchool = async({ schoolName }) => {
 };
 
 const createStudent = async({ studentName, schoolId }) => {
-  return (await client.query('INSERT INTO students("studentName", "schoolId") values($1, $2) returning *', [ studentName, schoolId])).rows[0]
+  return (await client.query('INSERT INTO students("studentName", "schoolId") values($1, $2) returning *', [ studentName, schoolId || null])).rows[0]
 };
 
 const destroyStudent = async(id)=> {
